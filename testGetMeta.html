@@ -24,7 +24,7 @@ console.log(postdata);
 				dataType: 'json',
 				success: function(data) {
 				console.log("success function");
-				$("#result").html(JSON.stringify(data));	
+				$("#result").html(JSON.stringify(data).replace(/\"/g, ""));
 				},
 				error: function(data) {
 					console.log("error function");
