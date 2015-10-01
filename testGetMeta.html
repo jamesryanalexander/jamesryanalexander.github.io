@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' lang='en-US' xml:lang='en-US'>
+<head>
+	<title> Title getter tester </title>
+	<script src='lcatools/scripts/jquery-1.10.2.min.js'></script>
+
+	<script>
+
+	$(document).ready(function(){
+
+	$("#submitbutton").click( function() {
+			"use strict";
+			console.log("test");
+
+			var daction = "title",
+			    durl = $("#url").val(),
+			    postdata = { action: daction, url: durl };
+console.log(postdata);
+			
+			$.ajax({
+				type: "POST",
+				url: "https://testwiki.jamesryanalexander.com/meta/getmeta.php",
+				data: postdata,
+				dataType: 'json',
+				success: function(data) {
+				console.log("success function");
+				$("#result").html(JSON.stringify(data));	
+				},
+				error: function(data) {
+					console.log("error function");
+					console.log(data);
+				}
+			});
+		});
+});
+
+	</script>
+
+</head>
+
+<body>
+	URL: <input type ='text' id='url' >
+	<input id='submitbutton' type ='button' value='submit' />
+	<br /> <br /> <br />
+	Title recieved: <span id='result'></span>
+</body>
