@@ -1,16 +1,16 @@
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml' lang='en-US' xml:lang='en-US'>
 <head>
-	<title> Title getter tester </title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<title> meta data getter tester </title>
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
 
 	<script>
 
 	$(document).ready(function(){
 
-	$("#submitbutton").click( function() {
+	$("#titlebutton").click( function() {
 			"use strict";
-			console.log("test");
+			console.log("testtitle");
 
 			var daction = "title",
 			    durl = $("#url").val(),
@@ -23,14 +23,138 @@ console.log(postdata);
 				data: postdata,
 				dataType: 'json',
 				success: function(data) {
-				console.log("success function");
-				$("#result").html(JSON.stringify(data).replace(/\"/g, ""));
+				console.log("title success function");
+				$("#titleresult").html(JSON.stringify(data).replace(/\"/g, ""));	
 				},
 				error: function(data) {
-					console.log("error function");
+					console.log("title error function");
 					console.log(data);
 				}
 			});
+		});
+
+	$("#descbutton").click( function() {
+			"use strict";
+			console.log("testregulardescription");
+
+			var daction = "description",
+			    durl = $("#url").val(),
+			    postdata = { action: daction, url: durl };
+console.log(postdata);
+			
+			$.ajax({
+				type: "POST",
+				url: "https://testwiki.jamesryanalexander.com/meta/getmeta.php",
+				data: postdata,
+				dataType: 'json',
+				success: function(data) {
+				console.log("desc success function");
+				$("#descresult").html(JSON.stringify(data).replace(/\"/g, ""));	
+				},
+				error: function(data) {
+					console.log("desc error function");
+					console.log(data);
+				}
+			});
+		});
+
+	$("#ogbutton").click( function() {
+			"use strict";
+			console.log("testogdescription");
+
+			var daction = "ogdescription",
+			    durl = $("#url").val(),
+			    postdata = { action: daction, url: durl };
+console.log(postdata);
+			
+			$.ajax({
+				type: "POST",
+				url: "https://testwiki.jamesryanalexander.com/meta/getmeta.php",
+				data: postdata,
+				dataType: 'json',
+				success: function(data) {
+				console.log("ogdesc success function");
+				$("#ogresult").html(JSON.stringify(data).replace(/\"/g, ""));	
+				},
+				error: function(data) {
+					console.log("ogdesc error function");
+					console.log(data);
+				}
+			});
+		});
+
+	$("#allseperate").click( function() {
+			"use strict";
+			console.log("test all at once, seperate calls");
+			$("#ogresult").html('');
+			$("#descresult").html('');
+			$("#titleresult").html('');
+
+			var daction = "ogdescription",
+			    durl = $("#url").val(),
+			    postdata = { action: daction, url: durl };
+console.log(postdata);
+			
+			$.ajax({
+				type: "POST",
+				url: "https://testwiki.jamesryanalexander.com/meta/getmeta.php",
+				data: postdata,
+				dataType: 'json',
+				success: function(data) {
+				console.log("ogdesc success function");
+				$("#ogresult").html(JSON.stringify(data).replace(/\"/g, ""));	
+				},
+				error: function(data) {
+					console.log("ogdesc error function");
+					console.log(data);
+				}
+			});
+
+			var daction = "description",
+			    durl = $("#url").val(),
+			    postdata = { action: daction, url: durl };
+console.log(postdata);
+			
+			$.ajax({
+				type: "POST",
+				url: "https://testwiki.jamesryanalexander.com/meta/getmeta.php",
+				data: postdata,
+				dataType: 'json',
+				success: function(data) {
+				console.log("desc success function");
+				$("#descresult").html(JSON.stringify(data).replace(/\"/g, ""));	
+				},
+				error: function(data) {
+					console.log("desc error function");
+					console.log(data);
+				}
+			});
+
+			var daction = "title",
+			    durl = $("#url").val(),
+			    postdata = { action: daction, url: durl };
+console.log(postdata);
+			
+			$.ajax({
+				type: "POST",
+				url: "https://testwiki.jamesryanalexander.com/meta/getmeta.php",
+				data: postdata,
+				dataType: 'json',
+				success: function(data) {
+				console.log("title success function");
+				$("#titleresult").html(JSON.stringify(data).replace(/\"/g, ""));	
+				},
+				error: function(data) {
+					console.log("title error function");
+					console.log(data);
+				}
+			});
+
+
+
+
+
+
 		});
 });
 
@@ -40,7 +164,11 @@ console.log(postdata);
 
 <body>
 	URL: <input type ='text' id='url' >
-	<input id='submitbutton' type ='button' value='submit' />
+	<input id='titlebutton' type ='button' value='get title' /> <input id='descbutton' type ='button' value='get description' /> <input id='ogbutton' type ='button' value='get opengraph description' /> <input id='allseperate' type='button' value='get all at once, seperate calls' />
 	<br /> <br /> <br />
-	Title recieved: <span id='result'></span>
+	Title recieved: <span id='titleresult'></span>
+	<br />
+	Description recieved: <span id='descresult'></span>
+	<br />
+	Open Graph Description recieved: <span id='ogresult'></span>
 </body>
